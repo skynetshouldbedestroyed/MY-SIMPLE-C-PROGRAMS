@@ -1,0 +1,152 @@
+//the most big shortcoming of this program is I don't use the idea of C
+//I don't use functions to realize some functions
+#include"stdio.h"
+#include"stdlib.h"
+
+#define LENGTH sizeof(struct Student) 
+
+struct Student
+{
+int num;
+char name[10];
+char sex[7];
+struct Student * next;
+};
+
+struct Student * head;
+
+void creat()
+{
+struct Student * p;
+p=(struct Student*) malloc(LENGTH);
+head=p;
+scanf("%d%s%s",&p->num,p->name,p->sex);
+while(p->num!=0)
+{
+p->next=(struct Student *)malloc(LENGTH);
+p=p->next;
+scanf("%d%s%s",&p->num,p->name,p->sex);
+}
+p->next=NULL;
+}
+
+void print()
+{
+struct Student *p;
+p=head;
+printf("num%3cname%6csex%3c\n",' ',' ',' ');
+while(p->next!=NULL)
+{
+printf("%-5d %-9s %-6s\n",p->num,p->name,p->sex);
+p=p->next;
+}
+}
+
+void main()
+{
+int n,num,i,t;
+int k;
+struct Student * p;
+printf("input students' information\n");
+creat();
+system("cls");
+printf("These are students' information\n");
+print();
+printf("if you want to end, then press 1\n");
+scanf("%d",&k);
+if(k==1)
+system("cls");
+while(1)
+{
+printf("修改：1\n删除：2\n添加：3\n查找：4\n");
+scanf("%d",&n);
+switch(n)
+{
+case 1:
+{
+printf("input the num that you want to change\n");
+scanf("%d",&num);
+p=head;
+printf("input the information which you want to take the place\n");
+while(p->next!=NULL)
+{
+if(p->num==num)
+{
+scanf("%d%s%s",&p->num,p->name,p->sex);
+break;
+}
+}
+system("cls");
+}
+break;
+case 2:
+{
+p=head;
+printf("input the num that you want to delete\n");
+scanf("%d",&num);
+if(head->num==num)
+head=head->next;
+else
+{
+while(p->next->num!=num)
+{
+p=p->next;
+}
+p->next=p->next->next;
+}
+system("cls");
+}
+break;
+case 3:
+{
+p=head;
+printf("input the num and other information which you want to add\n");
+while(p->num!=0)
+{
+p=p->next;
+}
+scanf("%d%s%s",&p->num,p->name,p->sex);
+p=p->next=(struct Student * )malloc(LENGTH);
+p->name[0]='0';
+p->name[1]='\0';
+p->num=0;
+p->sex[0]='0';
+p->sex[1]='\0';
+p->next=NULL;
+system("cls");
+}
+break;
+case 4:
+{
+p=head;
+printf("input the num that you want to find\n");
+scanf("%d",&num);
+while(p->num!=num)
+{
+if(p->next!=NULL)
+p=p->next;
+else
+{
+printf("There is nothing about %d\n",num);
+system("cls");
+goto s;
+}
+}
+printf("%-5d %-10s %-6s\n",p->num,p->name,p->sex);	
+}
+system("cls");
+}
+s:printf("Do you want to look over the newest information\n");
+  printf("YES:1\nNO:2\n");
+  scanf("%d",&i);
+  if(i);
+  system("cls");
+  print();
+  printf("if you also have some information to deal, press 1, else press 0\n ");
+  scanf("%d",&t);
+  if(t)
+  system("cls");
+  else
+  break;
+}
+}
